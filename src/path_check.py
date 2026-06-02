@@ -1,3 +1,5 @@
+"""Utility functions for checking and displaying file paths."""
+
 import os
 
 
