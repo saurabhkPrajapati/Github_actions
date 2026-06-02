@@ -1,0 +1,35 @@
+name: Run Script
+
+on:
+  push:
+    branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8.10'
+
+      - uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            import os
+            print("Directory contents:")
+            for f in os.listdir():
+                print(f)
+
+      - name: Run Python script
+        run: |
+          python - <<EOF
+          import os
+          print("Directory contents:")
+          for f in os.listdir():
+              print(f)
+          EOF
