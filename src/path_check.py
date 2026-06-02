@@ -2,6 +2,7 @@ import os
 
 
 def path_checker(file_path=None):
+    """Path checker"""
     # Full path of the currently running Python file
     if file_path is None:
         file_path = os.path.abspath(__file__)
