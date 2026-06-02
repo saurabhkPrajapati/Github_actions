@@ -54,9 +54,4 @@ jobs:
 
       - name: Run Python script
         run: |
-          python - <<EOF
-          import os
-          print("Directory contents:")
-          for f in os.listdir():
-              print(f)
-          EOF
+          python -c "import os; print('Directory contents:'); [print(f) for f in os.listdir()]"
