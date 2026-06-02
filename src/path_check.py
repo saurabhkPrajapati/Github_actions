@@ -1,8 +1,10 @@
 import os
 
-def path_checker():
+
+def path_checker(file_path=None):
     # Full path of the currently running Python file
-    file_path = os.path.abspath(__file__)
+    if file_path is None:
+        file_path = os.path.abspath(__file__)
 
     # Directory where the file is located
     dir_path = os.path.dirname(file_path)
@@ -14,4 +16,8 @@ def path_checker():
     print("Directory path:", dir_path)
     print("Folder name:", folder_name)
 
-path_checker()
+    return file_path, dir_path, folder_name
+
+
+if __name__ == "__main__":
+    path_checker()
