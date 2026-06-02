@@ -33,3 +33,30 @@ jobs:
           for f in os.listdir():
               print(f)
           EOF
+
+  test_muilple_platforms:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout to push branch
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run Python script
+        run: |
+          python - <<EOF
+          import os
+          print("Directory contents:")
+          for f in os.listdir():
+              print(f)
+          EOF
