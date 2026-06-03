@@ -1,0 +1,30 @@
+on: 
+  push:
+  branches: [ main ]
+. The push to main branch on GitHub.
+. PR Merges: The exact moment a Pull Request is merged into a main branch. (GitHub treats a merge as a new commit landing on the branch).
+. Tag Creation: When you push a new version tag (like v1.0.0) to the repository.
+
+Note: If you push multiple commits at once, the workflow only runs once for that entire push package, checking the very latest commit.
+
+
+on: 
+  pull_request:
+  branches: [ main ]
+
+. By default, it runs when a PR is actively created or modified, acting as a quality gate before merging.
+. It triggers automatically on these three default actions:
+    opened: The exact second a developer clicks "Create Pull Request" to propose changes.
+    synchronize: Every time the developer pushes a fresh commit to their PR branch to update it (modifications).
+    reopened: If a previously closed, unmerged PR is opened back up.
+
+. Crucial Difference: The pull_request event runs your tests on a temporary preview merge commit. It allows you to see if the changes will break main before the code is actually merged.
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed # Tells GitHub to wake up when a PR is closed
+
+    . If you explicitly told it to look for closed PRs using types: [closed], then yes, it will start right after the merge happens.
