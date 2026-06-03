@@ -6,6 +6,12 @@ on:
     # branches: [ main ]
 
 jobs:
+  debug_context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump entire GitHub context
+        run: echo "${{ toJSON(github) }}"
+        
   test:
     runs-on: ubuntu-latest
 

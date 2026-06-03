@@ -1,11 +1,17 @@
 name: Build, Lint, and Test Python Project
 
 on:
-#   workflow_dispatch:
-  push:
-    branches: [main]
+  workflow_dispatch:
+#   push:
+    # branches: [main]
 
 jobs:
+  debug_context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump entire GitHub context
+        run: echo "${{ toJSON(github) }}"
+        
   build:
     runs-on: ubuntu-latest
 
