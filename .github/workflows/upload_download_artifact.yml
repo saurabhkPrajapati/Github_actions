@@ -2,8 +2,8 @@ name: Upload, download artifacts
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
+#   push:
+    # branches: [main]
 
 jobs:
   debug_context:
@@ -50,7 +50,7 @@ jobs:
 
   download:
     needs: upload
-    
+
     runs-on: ubuntu-latest
 
     steps:

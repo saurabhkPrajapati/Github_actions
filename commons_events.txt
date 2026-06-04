@@ -1,6 +1,6 @@
 on: 
   push:
-  branches: [ main ]
+  branches: [main]
 . The push to main branch on GitHub.
 . PR Merges: The exact moment a Pull Request is merged into a main branch. (GitHub treats a merge as a new commit landing on the branch).
 . Tag Creation: When you push a new version tag (like v1.0.0) to the repository.
@@ -10,7 +10,7 @@ Note: If you push multiple commits at once, the workflow only runs once for that
 
 on: 
   pull_request:
-  branches: [ main ]
+  branches: [main]
 
 . By default, it runs when a PR is actively created or modified, acting as a quality gate before merging.
 . It triggers automatically on these three default actions:
