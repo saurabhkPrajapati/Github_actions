@@ -24,7 +24,6 @@ jobs:
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
-
       - name: Run tests
         run: |
           python -m unittest discover -s tests -p "test_*.py" -v
@@ -41,12 +40,19 @@ jobs:
       - name: Publish package filename
         id: step_123
         run: |
-          if [ -f tests/test_path_check.py ]; then
-            echo "package-file=tests/test_path_check.py" >> "$GITHUB_OUTPUT"
+          package_file=$(find tests -maxdepth 1 -type f -name "test_*.py" | head -n 1)
+          if [ -n "$package_file" ]; then
+            echo "package-file=$package_file" >> "$GITHUB_OUTPUT"
           else
-            echo "tests/test_path_check.py not found" >&2
+            echo "No matching test file found in tests/" >&2
             exit 1
           fi
+
+      - name: Upload package file
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-file
+          path: ${{ steps.step_123.outputs.package-file }}
 
   deploy:
     needs: package
@@ -54,6 +60,17 @@ jobs:
     steps:
       - name: Output package filename
         run: echo "${{ needs.package.outputs.package-file }}"
+
+      - name: Download package file
+        uses: actions/download-artifact@v4
+        with:
+          name: package-file
+          path: downloaded-file/
+
+      - name: Show downloaded file
+        run: |
+          echo "Downloaded artifact: ${{ needs.package.outputs.package-file }}"
+          ls -la downloaded-file/
 
       - name: Deploy
         run: echo "Deploying Python package..."
