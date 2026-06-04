@@ -1,4 +1,4 @@
-name: Test Python Project (unittest + coverage)
+name: unittest, coverage
 
 on:
   workflow_dispatch:

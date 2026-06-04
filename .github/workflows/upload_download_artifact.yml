@@ -1,4 +1,4 @@
-name: Test Python Project (unittest + coverage)
+name: Upload, download artifacts
 
 on:
   workflow_dispatch:
@@ -56,4 +56,5 @@ jobs:
 
       - name: Display downloaded artifacts
         run: |
+          echo "Downloaded artifacts:"
           ls -la htmlcov/
