@@ -28,3 +28,22 @@ on:
       - closed # Tells GitHub to wake up when a PR is closed
 
     . If you explicitly told it to look for closed PRs using types: [closed], then yes, it will start right after the merge happens.
+
+on:
+  pull_request:
+    # 1. Specifying the activity types
+    types:
+      - opened
+      - synchronize
+      - reopened
+    # 2. Specifying the branch pattern (using double asterisks for nested branches)
+    branches:
+      - 'releases/**' 
+      - 'test/*' # test/v1
+      - 'test**' # test/2026/march/bugfix, test/v1, testing, test-env
+    # 3. Specifying the path filter (running only if JavaScript files change)
+    paths:
+      - '**.js'
+Since the code is coming from a public fork, GitHub won't just blindly run it.
+The repository maintainer has to physically click an "Approve and run" button.
+Without that explicit manual permission from a maintainer, the workflow will sit there paused and won't execute at all.

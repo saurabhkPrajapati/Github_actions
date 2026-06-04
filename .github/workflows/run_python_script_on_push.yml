@@ -2,8 +2,8 @@ name: Run Script
 
 on: 
   workflow_dispatch:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
   # pull_request:
   #   branches: [ main ]
 
@@ -25,15 +25,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          
-      - name: Run Python script # works fro all platforms ( linux, windows, macos )
-        uses: jannekem/run-python-script-action@v1
-        with:
-          script: |
-            import os
-            print("Directory contents:")
-            for f in os.listdir():
-                print(f)
 
       - name: Run Python script  # works for linux only
         run: |
@@ -43,6 +34,30 @@ jobs:
           for f in os.listdir():
               print(f)
           EOF
+
+      - name: Run Python script  # works for all platforms ( linux, windows, macos )
+        shell: python
+        run: |
+          import os
+          print("Directory contents:")
+          for f in os.listdir():
+              print(f)
+
+      - name: Run Python file # works for all platforms ( linux, windows, macos )
+        run: python tests/test_path_check.py
+
+      - name: Run Python script # works for all platfroms ( linux, windows, macos )
+        run: |
+          python -c "import os; print('Directory contents:'); [print(f) for f in os.listdir()]"
+
+      - name: Run Python script # works for all platforms ( linux, windows, macos )
+        uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            import os
+            print("Directory contents:")
+            for f in os.listdir():
+                print(f)
 
   test_muilple_platforms:
     needs: build
